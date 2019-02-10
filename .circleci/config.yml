@@ -71,16 +71,16 @@ workflows:
       - build:
           filters:
             tags:
-              only: /.*/
+              only: /^v\d+\.\d+\.\d+$/
       - package:
           requires:
             - build
           filters:
             tags:
-              only: /.*/
+              only: /^v\d+\.\d+\.\d+$/
       - publish-github-release:
           requires:
             - package
           filters:
             tags:
-              only: /.*/
+              only: /^v\d+\.\d+\.\d+$/
