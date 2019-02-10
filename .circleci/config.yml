@@ -44,9 +44,9 @@ jobs:
           command: |
             ./package.sh src windows
       - persist_to_workspace:
-        root: /tmp/workspace
-        paths:
-          - pkg
+          root: /tmp/workspace
+          paths:
+            - pkg
 
   publish-github-release:
     docker:
