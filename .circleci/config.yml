@@ -26,6 +26,7 @@ jobs:
     docker:
       - image: circleci/buildpack-deps
     steps:
+      - checkout
       - run:
           name: "Create LÖVE package"
           command: |
@@ -42,18 +43,22 @@ jobs:
           name: "Create Windows release"
           command: |
             ./package.sh src windows
+      - persist_to_workspace:
+        root: /tmp/workspace
+        paths:
+          - pkg
 
   publish-github-release:
     docker:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: ./pkg
+          at: /tmp/workspace
       - run:
           name: "Publish Release on GitHub"
           command: |
             VERSION=$(git describe)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./pkg/
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/workspace/pkg/
 
 workflows:
   version: 2
