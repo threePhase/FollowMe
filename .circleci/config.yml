@@ -62,22 +62,25 @@ jobs:
 
 workflows:
   version: 2
-
   commit:
     jobs:
       - build
 
   release:
-    triggers:
-      - schedule:
-        filters:
-          tags:
-            only: /.*/
     jobs:
       - build
+          filters:
+            tags:
+              only: /.*/
       - package:
           requires:
             - build
+          filters:
+            tags:
+              only: /.*/
       - publish-github-release:
           requires:
             - package
+          filters:
+            tags:
+              only: /.*/
