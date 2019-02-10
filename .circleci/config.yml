@@ -17,8 +17,59 @@ jobs:
           command: |
             find src -iname "*.lua" | xargs luac -p
 
+  package:
+    docker:
+      - image: circleci/buildpack-deps
+    steps:
+      - run:
+          name: "Create LÖVE package"
+          command: |
+            ./package.sh src love
+      - run:
+          name: "Create Linux release"
+          command: |
+            ./package.sh src linux
+      - run:
+          name: "Create macOS release"
+          command: |
+            ./package.sh src macos
+      - run:
+          name: "Create Windows release"
+          command: |
+            ./package.sh src windows
+
+  publish-github-release:
+    docker:
+      - image: cibuilds/github:0.10
+    steps:
+      - attach_workspace:
+          at: ./pkg
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./pkg/
+
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - package:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
+      - publish-github-release:
+          requires:
+            - package
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
