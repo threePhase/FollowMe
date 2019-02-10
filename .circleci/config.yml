@@ -68,7 +68,7 @@ workflows:
 
   release:
     jobs:
-      - build
+      - build:
           filters:
             tags:
               only: /.*/
