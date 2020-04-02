@@ -1,7 +1,7 @@
 # FollowMe
 
 
-[![Build Status](https://circleci.com/gh/binaryreveries/FollowMe.svg?style=svg)](https://circleci.com/gh/binaryreveries/FollowMe)
+[](https://github.com/threePhase/FollowMe/workflows/CI/badge.svg)
 
 ## Requirements
 
