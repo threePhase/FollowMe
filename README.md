@@ -1,7 +1,7 @@
 # FollowMe
 
 
-[![Build Status](https://travis-ci.org/binaryreveries/FollowMe.svg?branch=master)](https://travis-ci.org/binaryreveries/FollowMe)
+[](https://github.com/threePhase/FollowMe/workflows/CI/badge.svg)
 
 ## Requirements
 
