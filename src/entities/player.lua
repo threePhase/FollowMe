@@ -79,7 +79,7 @@ function player:create(x, y, id)
       t:destroy()
     end
 
-    p.body:destroy()
+    self.body:destroy()
   end
 
   local maxTurnPerTimeStep = 320*math.pi/60
