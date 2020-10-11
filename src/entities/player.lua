@@ -41,8 +41,8 @@ function player:create(x, y, id)
   -- attach fixture to body and set density to 1.0
   p.fixture = love.physics.newFixture(p.body, p.shape, 1.0)
 
-  local rearTireMaxDriveForce = 300
-  local frontTireMaxDriveForce = 500
+  local rearTireMaxDriveForce = 500
+  local frontTireMaxDriveForce = 700
   local rearTireMaxLateralImpulse = 8.5
   local frontTireMaxLateralImpulse = 7.5
 
@@ -145,8 +145,8 @@ function player:create(x, y, id)
     self.img = love.graphics.newImage(data)
   end
 
-  local maxForwardSpeed = 250
-  local maxReverseSpeed = -40
+  local maxForwardSpeed = 1000
+  local maxReverseSpeed = -200
 
   function p:beginAccelerating()
     logger:debug("beginAccelerating")
