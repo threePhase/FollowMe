@@ -14,8 +14,6 @@ function tire:create(x, y, maxDriveForce, maxLateralImpulse)
         body = love.physics.newBody(world, x, y, "dynamic"),
         shape = love.physics.newRectangleShape(width, height),
         fixture = nil,
-        desiredSpeed = 0,
-        desiredTorque = 0,
         traction = 1,
         surfaces = {}
     }
