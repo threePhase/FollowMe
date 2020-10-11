@@ -8,7 +8,7 @@ local tireDataType = "tire"
 
 function tire:create(x, y, maxDriveForce, maxLateralImpulse)
     -- 0.5, 1.25
-    local width, height = 1, 2.5
+    local width, height = 2, 5
 
     local t = {
         body = love.physics.newBody(world, x, y, "dynamic"),
