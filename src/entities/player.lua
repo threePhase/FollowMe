@@ -1,5 +1,6 @@
 local assets = require("assets")
 local netman = require("net.netman")
+local logger = require("logger.logger")
 local base = require("entities.base")
 local tire = require("entities.tire")
 local util = require("util.util")
@@ -148,6 +149,7 @@ function player:create(x, y, id)
   local maxReverseSpeed = -40
 
   function p:beginAccelerating()
+    logger:debug("beginAccelerating")
     self.desiredSpeed = maxForwardSpeed
   end
 
@@ -155,22 +157,26 @@ function player:create(x, y, id)
   end
 
   function p:beginReversing()
+    logger:debug("beginReversing")
     self.desiredSpeed = maxReverseSpeed
   end
 
   local lockAngle = 40*math.pi/180
 
   function p:beginTurningLeft()
+    logger:debug("beginTurningLeft")
     self.desiredTorque = 15
     self.desiredAngle = lockAngle
   end
 
   function p:beginTurningRight()
+    logger:debug("beginTurningRight")
     self.desiredTorque = -15
     self.desiredAngle = -lockAngle
   end
 
   function p:endAccelerating()
+    logger:debug("endAccelerating")
     self.desiredSpeed = 0
   end
 
@@ -178,15 +184,18 @@ function player:create(x, y, id)
   end
 
   function p:endReversing()
+    logger:debug("endReversing")
     self.desiredSpeed = 0
   end
 
   function p:endTurningLeft()
+    logger:debug("endTurningLeft")
     self.desiredTorque = 0
     self.desiredAngle = 0
   end
 
   function p:endTurningRight()
+    logger:debug("endTurningRight")
     self.desiredTorque = 0
     self.desiredAngle = 0
   end
