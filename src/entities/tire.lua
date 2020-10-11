@@ -15,6 +15,7 @@ function tire:create(x, y, maxDriveForce, maxLateralImpulse)
         shape = love.physics.newRectangleShape(width, height),
         fixture = nil,
         traction = 1,
+        speed = 0,
         surfaces = {}
     }
 
@@ -65,12 +66,12 @@ function tire:create(x, y, maxDriveForce, maxLateralImpulse)
     function t:updateDrive(desiredSpeed)
         local nx, ny = self.body:getWorldVector(0, 1)
         local fx, fy = self:getForwardVelocity()
-        local speed = util:dotProduct(fx, fy, nx, ny)
+        self.speed = util:dotProduct(fx, fy, nx, ny)
 
         local force = 0
-        if desiredSpeed > speed then
+        if desiredSpeed > self.speed then
             force = maxDriveForce
-        elseif desiredSpeed < speed then
+        elseif desiredSpeed < self.speed then
             force = -maxDriveForce
         else
             return
