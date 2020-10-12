@@ -245,9 +245,9 @@ function love.keyreleased(key, scancode)
     playerLocal:endAccelerating()
   elseif key == "s" then
     playerLocal:endReversing()
-  elseif key == "a" then
+  elseif key == "a" and not love.keyboard.isDown("d") then
     playerLocal:endTurningLeft()
-  elseif key == "d" then
+  elseif key == "d" and not love.keyboard.isDown("a") then
     playerLocal:endTurningRight()
   elseif key == "space" then
     playerLocal:endBraking()
